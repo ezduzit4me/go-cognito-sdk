@@ -8,10 +8,11 @@ import (
 
 func main() {
 
-	cognitoClient := clients.NewCognitoClient("", "")
-	err, result := cognitoClient.SignUp("geoffreyWarrener@gmail.com", "test")
+	cognitoClient := clients.NewCognitoClient("ap-southeast-2", "26c2pgelskg6cq61htpck65ii3")
+	err, result := cognitoClient.SignUp("iran.rourke@dropsin.net", "test")
 
 	if err != nil {
+		fmt.Print("Error" + fmt.Sprint("%s", err))
 		panic(err)
 	}
 	fmt.Printf("result:" + fmt.Sprintf("%s", result))

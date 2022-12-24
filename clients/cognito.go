@@ -9,7 +9,7 @@ import (
 type CognitoClient interface {
 	SignUp(email string, password string) (error, string)
 	ConfirmSignUp(email string, code string) (error, string)
-	// SignIn(email string, code string) (error, string)
+	// SignIn(email string, password string) (error, string)
 }
 
 type awsCognitoClient struct {
@@ -70,10 +70,18 @@ func (ctx *awsCognitoClient) ConfirmSignUp(email string, code string) (error, st
 
 }
 
-//func (ctx *awsCognitoClient) SignIn(email string, code string) (error, string) {
-//	initiateAuthInput := &cognito.InitiateAuthInput()
+func (ctx *awsCognitoClient) SignIn(email string, password string) (error, string) {
+	initiateAuthInput := &cognito.InitiateAuthInput{
+		AuthParameters: aws.StringMap(map[string]string{}),
 
-//	result, err := ctx.cognitoClient.InitiateAuth()
+		ClientId: aws.String(ctx.appClientId),
+	}
 
-//return nil, result.String()
-// }
+	result, err := ctx.cognitoClient.InitiateAuth(initiateAuthInput)
+
+	if err != nil {
+		return err, ""
+	}
+
+	return nil, result.String()
+}

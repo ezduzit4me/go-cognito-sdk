@@ -7,39 +7,89 @@ import (
 	"path/filepath"
     "net/http"
 	"github.com/ezduzit4me/go-cognito-sdk/clients"
-	// "github.com/gorilla/mux"
+	
 	"github.com/go-chi/chi/v5"
 )
 
 
 	
-	
+func executeTemplate(w http.ResponseWriter, filepath string) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	  tpl, err := template.ParseFiles(filepath)
+	  if err != nil {
+		  fmt.Printf("processing template: %v", err)
+		  http.Error(w, "There was an error processing the template.", http.StatusInternalServerError)
+		  return
+	  }
+	  err = tpl.Execute(w, nil)
+	  if err != nil {
+		  fmt.Printf("executing template: %v", err)
+		  http.Error(w, "There was an error executing the template.", http.StatusInternalServerError)
+		  return
+	  }
+  }
+  
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	
 	tplPath := filepath.Join("templates", "cunningham.tmpl")
-	tpl, err := template.ParseFiles(tplPath)
-	if err != nil {
-		panic(err) // TODO: Remove the panic
-	}
-	err = tpl.Execute(w, nil)
-	if err != nil {
-		panic(err) // TODO: Remove the panic
-	}
+	executeTemplate(w,tplPath)
+}
+
+func floodHandler(w http.ResponseWriter, r *http.Request) {
+	
+	tplPath := filepath.Join("templates", "flood.tmpl")
+	executeTemplate(w,tplPath)
+}
+
+func petHandler(w http.ResponseWriter, r *http.Request) {
+	
+	tplPath := filepath.Join("templates", "pet.tmpl")
+	executeTemplate(w,tplPath)
+}
+
+func utilityHandler(w http.ResponseWriter, r *http.Request) {
+	
+	tplPath := filepath.Join("templates", "utility.tmpl")
+	executeTemplate(w,tplPath)
+}
+
+func managerHandler(w http.ResponseWriter, r *http.Request) {
+	
+	tplPath := filepath.Join("templates", "manager.tmpl")
+	executeTemplate(w,tplPath)
+}
+
+func maintenanceHandler(w http.ResponseWriter, r *http.Request) {
+	
+	tplPath := filepath.Join("templates", "maintenance.tmpl")
+	executeTemplate(w,tplPath)
+}
+
+func contactHandler(w http.ResponseWriter, r *http.Request) {
+	
+	tplPath := filepath.Join("templates", "contact.tmpl")
+	executeTemplate(w,tplPath)
 }
 
 
-  func contactHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	fmt.Fprint(w, "contact")
-  }
+func committeeHandler(w http.ResponseWriter, r *http.Request) {
+	
+	tplPath := filepath.Join("templates", "committee.tmpl")
+	executeTemplate(w,tplPath)
+}
 
 func main() {
 	
 	r := chi.NewRouter()
   r.Get("/", homeHandler)
+  r.Get("/committee", committeeHandler)
   r.Get("/contact", contactHandler)
-  
+  r.Get("/maintenance", maintenanceHandler)
+  r.Get("/manager", managerHandler)
+  r.Get("/utility", utilityHandler)
+  r.Get("/pet", petHandler)
+  r.Get("/flood", floodHandler)
   r.NotFound(func(w http.ResponseWriter, r *http.Request) {
     http.Error(w, "Page not found", http.StatusNotFound)
   })

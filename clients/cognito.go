@@ -72,9 +72,12 @@ func (ctx *awsCognitoClient) ConfirmSignUp(email string, code string) (error, st
 
 func (ctx *awsCognitoClient) SignIn(email string, password string) (error, string, *cognito.InitiateAuthOutput) {
 	initiateAuthInput := &cognito.InitiateAuthInput{
-		AuthFlow:       aws.String("USER_PASSWORD_AUTH"),
-		AuthParameters: aws.StringMap(map[string]string{}),
-		ClientId:       aws.String(ctx.appClientId),
+		AuthFlow: aws.String("USER_PASSWORD_AUTH"),
+		AuthParameters: aws.StringMap(map[string]string{
+			"USERNAME": email,
+			"PASSWORD": password,
+		}),
+		ClientId: aws.String(ctx.appClientId),
 	}
 	result, err := ctx.cognitoClient.InitiateAuth(initiateAuthInput)
 

@@ -3,10 +3,11 @@ package main
 import (
 	
 	"fmt"
-	 "html/template"
+	
 	"path/filepath"
     "net/http"
 	"github.com/ezduzit4me/go-cognito-sdk/clients"
+	"github.com/ezduzit4me/go-cognito-sdk/views"
 	
 	"github.com/go-chi/chi/v5"
 )
@@ -14,20 +15,14 @@ import (
 
 	
 func executeTemplate(w http.ResponseWriter, filepath string) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	  tpl, err := template.ParseFiles(filepath)
-	  if err != nil {
-		  fmt.Printf("processing template: %v", err)
-		  http.Error(w, "There was an error processing the template.", http.StatusInternalServerError)
-		  return
-	  }
-	  err = tpl.Execute(w, nil)
-	  if err != nil {
-		  fmt.Printf("executing template: %v", err)
-		  http.Error(w, "There was an error executing the template.", http.StatusInternalServerError)
-		  return
-	  }
-  }
+	tpl, err := views.Parse(filepath)
+	if err != nil {
+		fmt.Printf("parsing template: %v", err)
+		http.Error(w, "There was an error parsing the template.", http.StatusInternalServerError)
+		return
+	}
+	tpl.Execute(w, nil)
+}
   
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {

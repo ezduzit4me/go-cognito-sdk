@@ -3,6 +3,8 @@ module github.com/ezduzit4me/go-cognito-sdk
 go 1.19
 
 require (
+	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 // indirect
+	github.com/alecthomas/units v0.0.0-20190924025748-f65c72e2690d // indirect
 	github.com/aws/aws-sdk-go v1.44.166 // indirect
 	github.com/aws/aws-sdk-go-v2 v1.17.3 // indirect
 	github.com/aws/aws-sdk-go-v2/config v1.18.7 // indirect
@@ -21,5 +23,8 @@ require (
 	github.com/aws/smithy-go v1.13.5 // indirect
 	github.com/go-chi/chi/v5 v5.0.8 // indirect
 	github.com/gorilla/mux v1.8.0 // indirect
+	github.com/gotailwindcss/tailwind v0.0.0-20210406193335-5d42b3bca16c // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
+	github.com/tdewolff/parse/v2 v2.5.0 // indirect
+	gopkg.in/alecthomas/kingpin.v2 v2.2.6 // indirect
 )

@@ -8,7 +8,7 @@ import (
     "net/http"
 	"github.com/ezduzit4me/go-cognito-sdk/clients"
 	"github.com/ezduzit4me/go-cognito-sdk/views"
-	
+	"github.com/ezduzit4me/go-cognito-sdk/controllers"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -25,66 +25,61 @@ func executeTemplate(w http.ResponseWriter, filepath string) {
 }
   
 
-func homeHandler(w http.ResponseWriter, r *http.Request) {
-	
-	tplPath := filepath.Join("templates", "cunningham.tmpl")
-	executeTemplate(w,tplPath)
-}
 
-func floodHandler(w http.ResponseWriter, r *http.Request) {
-	
-	tplPath := filepath.Join("templates", "flood.tmpl")
-	executeTemplate(w,tplPath)
-}
-
-func petHandler(w http.ResponseWriter, r *http.Request) {
-	
-	tplPath := filepath.Join("templates", "pet.tmpl")
-	executeTemplate(w,tplPath)
-}
-
-func utilityHandler(w http.ResponseWriter, r *http.Request) {
-	
-	tplPath := filepath.Join("templates", "utility.tmpl")
-	executeTemplate(w,tplPath)
-}
-
-func managerHandler(w http.ResponseWriter, r *http.Request) {
-	
-	tplPath := filepath.Join("templates", "manager.tmpl")
-	executeTemplate(w,tplPath)
-}
-
-func maintenanceHandler(w http.ResponseWriter, r *http.Request) {
-	
-	tplPath := filepath.Join("templates", "maintenance.tmpl")
-	executeTemplate(w,tplPath)
-}
-
-func contactHandler(w http.ResponseWriter, r *http.Request) {
-	
-	tplPath := filepath.Join("templates", "contact.tmpl")
-	executeTemplate(w,tplPath)
-}
-
-
-func committeeHandler(w http.ResponseWriter, r *http.Request) {
-	
-	tplPath := filepath.Join("templates", "committee.tmpl")
-	executeTemplate(w,tplPath)
-}
 
 func main() {
 	
 	r := chi.NewRouter()
-  r.Get("/", homeHandler)
-  r.Get("/committee", committeeHandler)
-  r.Get("/contact", contactHandler)
-  r.Get("/maintenance", maintenanceHandler)
-  r.Get("/manager", managerHandler)
-  r.Get("/utility", utilityHandler)
-  r.Get("/pet", petHandler)
-  r.Get("/flood", floodHandler)
+    
+	tpl, err := views.Parse(filepath.Join("templates", "cunningham.tmpl"))
+	if err != nil {
+	  panic(err)
+	}
+  r.Get("/", controllers.StaticHandler(tpl))
+
+  tpl, err = views.Parse(filepath.Join("templates", "committee.tmpl"))
+	if err != nil {
+	  panic(err)
+	}
+  r.Get("/committee", controllers.StaticHandler(tpl))
+
+  tpl, err = views.Parse(filepath.Join("templates", "contact.tmpl"))
+  if err != nil {
+	panic(err)
+  }
+  r.Get("/contact", controllers.StaticHandler(tpl))
+
+  tpl, err = views.Parse(filepath.Join("templates", "maintenance.tmpl"))
+  if err != nil {
+	panic(err)
+  }
+  r.Get("/maintenance", controllers.StaticHandler(tpl))
+
+  tpl, err = views.Parse(filepath.Join("templates", "manager.tmpl"))
+	if err != nil {
+	  panic(err)
+	}
+  r.Get("/manager", controllers.StaticHandler(tpl))
+
+  tpl, err = views.Parse(filepath.Join("templates", "utility.tmpl"))
+	if err != nil {
+	  panic(err)
+	}
+  r.Get("/utility", controllers.StaticHandler(tpl))
+
+  tpl, err = views.Parse(filepath.Join("templates", "pet.tmpl"))
+	if err != nil {
+	  panic(err)
+	}
+  r.Get("/pet", controllers.StaticHandler(tpl))
+
+  tpl, err = views.Parse(filepath.Join("templates", "flood.tmpl"))
+	if err != nil {
+	  panic(err)
+	}
+  r.Get("/flood", controllers.StaticHandler(tpl))
+
+
   r.NotFound(func(w http.ResponseWriter, r *http.Request) {
     http.Error(w, "Page not found", http.StatusNotFound)
   })

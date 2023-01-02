@@ -4,11 +4,12 @@ import (
 	
 	"fmt"
 	
-	"path/filepath"
+	
     "net/http"
 	"github.com/ezduzit4me/go-cognito-sdk/clients"
 	"github.com/ezduzit4me/go-cognito-sdk/views"
 	"github.com/ezduzit4me/go-cognito-sdk/controllers"
+	"github.com/ezduzit4me/go-cognito-sdk/templates"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -30,54 +31,32 @@ func executeTemplate(w http.ResponseWriter, filepath string) {
 func main() {
 	
 	r := chi.NewRouter()
-    
-	tpl, err := views.Parse(filepath.Join("templates", "cunningham.tmpl"))
-	if err != nil {
-	  panic(err)
-	}
-  r.Get("/", controllers.StaticHandler(tpl))
 
-  tpl, err = views.Parse(filepath.Join("templates", "committee.tmpl"))
-	if err != nil {
-	  panic(err)
-	}
-  r.Get("/committee", controllers.StaticHandler(tpl))
+	
+    r.Get("/", controllers.StaticHandler(
+	views.Must(views.ParseFS(templates.FS, "cunningham.tmpl"))))
 
-  tpl, err = views.Parse(filepath.Join("templates", "contact.tmpl"))
-  if err != nil {
-	panic(err)
-  }
-  r.Get("/contact", controllers.StaticHandler(tpl))
+	r.Get("/committee", controllers.StaticHandler(
+		views.Must(views.ParseFS(templates.FS, "committee.tmpl"))))
 
-  tpl, err = views.Parse(filepath.Join("templates", "maintenance.tmpl"))
-  if err != nil {
-	panic(err)
-  }
-  r.Get("/maintenance", controllers.StaticHandler(tpl))
 
-  tpl, err = views.Parse(filepath.Join("templates", "manager.tmpl"))
-	if err != nil {
-	  panic(err)
-	}
-  r.Get("/manager", controllers.StaticHandler(tpl))
+	r.Get("/contact", controllers.StaticHandler(
+		views.Must(views.ParseFS(templates.FS, "contact.tmpl"))))
 
-  tpl, err = views.Parse(filepath.Join("templates", "utility.tmpl"))
-	if err != nil {
-	  panic(err)
-	}
-  r.Get("/utility", controllers.StaticHandler(tpl))
+	r.Get("/maintenance", controllers.StaticHandler(
+		views.Must(views.ParseFS(templates.FS, "maintenance.tmpl"))))
 
-  tpl, err = views.Parse(filepath.Join("templates", "pet.tmpl"))
-	if err != nil {
-	  panic(err)
-	}
-  r.Get("/pet", controllers.StaticHandler(tpl))
+	r.Get("/manager", controllers.StaticHandler(
+		views.Must(views.ParseFS(templates.FS, "manager.tmpl"))))
 
-  tpl, err = views.Parse(filepath.Join("templates", "flood.tmpl"))
-	if err != nil {
-	  panic(err)
-	}
-  r.Get("/flood", controllers.StaticHandler(tpl))
+	r.Get("/utility", controllers.StaticHandler(
+		views.Must(views.ParseFS(templates.FS, "utility.tmpl"))))
+
+	r.Get("/pet", controllers.StaticHandler(
+		views.Must(views.ParseFS(templates.FS, "pet.tmpl"))))
+	
+		r.Get("/flood", controllers.StaticHandler(
+			views.Must(views.ParseFS(templates.FS, "flood.tmpl"))))
 
 
   r.NotFound(func(w http.ResponseWriter, r *http.Request) {

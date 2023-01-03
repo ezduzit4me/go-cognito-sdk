@@ -34,29 +34,29 @@ func main() {
 
 	
     r.Get("/", controllers.StaticHandler(
-	views.Must(views.ParseFS(templates.FS, "home.tmpl","layout-parts.tmpl"))))
+	views.Must(views.ParseFS(templates.FS, "home.tmpl","tailwind.tmpl"))))
 
 	r.Get("/committee", controllers.StaticHandler(
-		views.Must(views.ParseFS(templates.FS, "committee.tmpl","layout-parts.tmpl"))))
+		views.Must(views.ParseFS(templates.FS, "committee.tmpl","tailwind.tmpl"))))
 
 
 	r.Get("/contact", controllers.StaticHandler(
-		views.Must(views.ParseFS(templates.FS, "contact.tmpl","layout-parts.tmpl"))))
+		views.Must(views.ParseFS(templates.FS, "contact.tmpl","tailwind.tmpl"))))
 
 	r.Get("/maintenance", controllers.StaticHandler(
-		views.Must(views.ParseFS(templates.FS, "maintenance.tmpl","layout-parts.tmpl"))))
+		views.Must(views.ParseFS(templates.FS, "maintenance.tmpl","tailwind.tmpl"))))
 
 	r.Get("/manager", controllers.StaticHandler(
-		views.Must(views.ParseFS(templates.FS, "manager.tmpl","layout-parts.tmpl"))))
+		views.Must(views.ParseFS(templates.FS, "manager.tmpl","tailwind.tmpl"))))
 
 	r.Get("/utility", controllers.StaticHandler(
-		views.Must(views.ParseFS(templates.FS, "utility.tmpl","layout-parts.tmpl"))))
+		views.Must(views.ParseFS(templates.FS, "utility.tmpl","tailwind.tmpl"))))
 
 	r.Get("/pet", controllers.StaticHandler(
-		views.Must(views.ParseFS(templates.FS, "pet.tmpl","layout-parts.tmpl"))))
+		views.Must(views.ParseFS(templates.FS, "pet.tmpl","tailwind.tmpl"))))
 	
 		r.Get("/flood", controllers.StaticHandler(
-			views.Must(views.ParseFS(templates.FS, "flood.tmpl","layout-parts.tmpl"))))
+			views.Must(views.ParseFS(templates.FS, "flood.tmpl","tailwind.tmpl"))))
 
 
   r.NotFound(func(w http.ResponseWriter, r *http.Request) {

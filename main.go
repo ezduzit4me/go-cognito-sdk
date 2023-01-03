@@ -34,29 +34,29 @@ func main() {
 
 	
     r.Get("/", controllers.StaticHandler(
-	views.Must(views.ParseFS(templates.FS, "cunningham.tmpl"))))
+	views.Must(views.ParseFS(templates.FS, "home.tmpl","layout-parts.tmpl"))))
 
 	r.Get("/committee", controllers.StaticHandler(
-		views.Must(views.ParseFS(templates.FS, "committee.tmpl"))))
+		views.Must(views.ParseFS(templates.FS, "committee.tmpl","layout-parts.tmpl"))))
 
 
 	r.Get("/contact", controllers.StaticHandler(
-		views.Must(views.ParseFS(templates.FS, "contact.tmpl"))))
+		views.Must(views.ParseFS(templates.FS, "contact.tmpl","layout-parts.tmpl"))))
 
 	r.Get("/maintenance", controllers.StaticHandler(
-		views.Must(views.ParseFS(templates.FS, "maintenance.tmpl"))))
+		views.Must(views.ParseFS(templates.FS, "maintenance.tmpl","layout-parts.tmpl"))))
 
 	r.Get("/manager", controllers.StaticHandler(
-		views.Must(views.ParseFS(templates.FS, "manager.tmpl"))))
+		views.Must(views.ParseFS(templates.FS, "manager.tmpl","layout-parts.tmpl"))))
 
 	r.Get("/utility", controllers.StaticHandler(
-		views.Must(views.ParseFS(templates.FS, "utility.tmpl"))))
+		views.Must(views.ParseFS(templates.FS, "utility.tmpl","layout-parts.tmpl"))))
 
 	r.Get("/pet", controllers.StaticHandler(
-		views.Must(views.ParseFS(templates.FS, "pet.tmpl"))))
+		views.Must(views.ParseFS(templates.FS, "pet.tmpl","layout-parts.tmpl"))))
 	
 		r.Get("/flood", controllers.StaticHandler(
-			views.Must(views.ParseFS(templates.FS, "flood.tmpl"))))
+			views.Must(views.ParseFS(templates.FS, "flood.tmpl","layout-parts.tmpl"))))
 
 
   r.NotFound(func(w http.ResponseWriter, r *http.Request) {
